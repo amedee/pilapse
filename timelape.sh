@@ -1,11 +1,11 @@
 #! /bin/bash
 # Time-lapse capture script
-# Author : Samuel El-Borai
-# Date : 29 juin 2010
-# Tested with : The iSight of my MacBook Pro 5.1, ArchGNULinux kernel 2.6.34.
-#		Both camera of my N900, running Maemo PR 1.2
-# Need : mplayer , mencoder
+# Author : Amedee Van Gasse
+# Date : 14 April 2013 (Raspberry Pi Day)
+# Tested with : Logitech Portable Webcam C910, Raspbian kernel 3.6.11-rpi-aufs.
+# Need : mplayer, mencoder, fswebcam
 # Lisense : BSD
+
 
 if test $# -ne 2; then
 	echo 'Need two arguments : time(seconds) and frames(integer)'
@@ -29,14 +29,14 @@ t=$1
 
 echo $f
  
-rep='motion_'$(date '+%y%m%d%H')
+rep='motion_'$(date '+%Y%m%d%H%M')
 
 mkdir $rep
 cd $rep
 
 for i in `seq 1 $2`;
 do
-	mplayer -really-quiet tv:// -vo png -frames $nb_frame;
+       fswebcam --quiet --device /dev/video0 --resolution 1280x720 timelapse_$i.jpg > /dev/null 2>&1
 		case ${#i} in
 			1) n='0000'$i;;
 			2) n='000'$i;;
@@ -48,13 +48,12 @@ do
 		esac
 
 		echo $n
-	mv 0000000$nb_frame.png screen_$n.png
-	rm 0*.png
+	mv timelapse_$i.jpg screen_$n.jpg
 
 # Time to echo remaining (Change time_to_echo to the minimum time you want between each echo)
-	time_to_echo=10
+	time_to_echo=1
 	w=0
-	
+
 	if test $t -gt $time_to_echo
 	then
 		while test $(expr $w + $time_to_echo) -lt $t
@@ -71,6 +70,6 @@ do
 	echo 'Frames '$i' / '$2
 done
 
-mencoder "mf://*.png" -mf fps=12:type=png -ovc lavc -lavcopts vcodec=mpeg4:mbd=2:trell:vbitrate=7000 -vf scale=640:480 -oac copy -o movie_$rep.avi
+mencoder "mf://*.jpg" -mf fps=12:type=jpg -ovc lavc -lavcopts vcodec=mpeg4:mbd=2:trell:vbitrate=7000 -vf scale=1280:720 -oac copy -o movie_$rep.avi
 
 exit 0
