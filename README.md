@@ -17,7 +17,7 @@ Installation
 ------------
 * Install uvccapture for capturing images:
 
-        sudo apt-get install uvccapture luvcview vgrabbj fswebcam
+        sudo apt-get install uvccapture luvcview vgrabbj fswebcam xawtv
 
 * Install mplayer, mencoder and imagemagick for image and video manipulation:
 
