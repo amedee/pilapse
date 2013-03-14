@@ -20,7 +20,7 @@ Installation
 
 * Install mplayer, mencoder and imagemagick for image and video manipulation:
 
-        sudo apt-get install mplayer mencoder imagemagick
+        sudo apt-get install mplayer mencoder ffmpeg imagemagick
 
 * Install ntpdate to have correct timestamps:
 
