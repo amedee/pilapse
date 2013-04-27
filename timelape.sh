@@ -1,10 +1,10 @@
 #! /bin/bash
 # Time-lapse capture script
 # Author : Amedee Van Gasse
-# Date : 14 April 2013 (Raspberry Pi Day)
+# Date : 14 March 2013 (Raspberry Pi Day)
 # Tested with : Logitech Portable Webcam C910, Raspbian kernel 3.6.11-rpi-aufs.
 # Need : mplayer, mencoder, fswebcam
-# Lisense : BSD
+# License : BSD
 
 
 if test $# -ne 2; then
